@@ -286,13 +286,35 @@ static ffmpeg_codec_desc codec_desc[] =
 #if PJMEDIA_HAS_FFMPEG_CODEC_H264
     {
 	{PJMEDIA_FORMAT_H264, PJMEDIA_RTP_PT_H264, {"H264",4},
-	 {"Constrained Baseline (level=30, pack=1)", 39}},
+	 {"Constrained Baseline (level=31, pack=0)", 39}},
+	0,
+	{1920, 1080},	{15, 1},	68000000 , 68000000 ,
+	&h264_packetize, &h264_unpacketize, &h264_preopen, &h264_postopen,
+	&pjmedia_vid_codec_h264_match_sdp,
+	/* Leading space for better compatibility (strange indeed!) */
+	{2, { {{"profile-level-id",16},    {"42e029",6}}, 
+	      {{" packetization-mode",19},  {"0",1}}, } },
+    }, 
+    {
+	{PJMEDIA_FORMAT_H264, PJMEDIA_RTP_PT_H264, {"H264",4},
+	 {"Constrained Baseline (level=31, pack=0)", 39}},
 	0,
 	{720, 480},	{15, 1},	256000, 256000,
 	&h264_packetize, &h264_unpacketize, &h264_preopen, &h264_postopen,
 	&pjmedia_vid_codec_h264_match_sdp,
 	/* Leading space for better compatibility (strange indeed!) */
-	{2, { {{"profile-level-id",16},    {"42e01e",6}}, 
+	{2, { {{"profile-level-id",16},    {"42801f",6}}, 
+	      {{" packetization-mode",19},  {"0",1}}, } },
+    },     
+    {
+	{PJMEDIA_FORMAT_H264, PJMEDIA_RTP_PT_H264, {"H264",4},
+	 {"Constrained Baseline (level=20, pack=1)", 39}},
+	0,
+	{720, 480},	{15, 1},	256000, 256000,
+	&h264_packetize, &h264_unpacketize, &h264_preopen, &h264_postopen,
+	&pjmedia_vid_codec_h264_match_sdp,
+	/* Leading space for better compatibility (strange indeed!) */
+	{2, { {{"profile-level-id",16},    {"428014",6}}, 
 	      {{" packetization-mode",19},  {"1",1}}, } },
     },
 #endif
@@ -1710,7 +1732,7 @@ static pj_status_t ffmpeg_codec_decode_whole(pjmedia_vid_codec *codec,
      * Normally, encoded buffer is allocated more than needed, so lets just
      * bzero the input buffer end/pad, hope it will be just fine.
      */
-    pj_bzero(avpacket.data+avpacket.size, FF_INPUT_BUFFER_PADDING_SIZE);
+    pj_bzero(avpacket.data+avpacket.size, AV_INPUT_BUFFER_PADDING_SIZE);
 
     output->bit_info = 0;
     output->timestamp = input->timestamp;
