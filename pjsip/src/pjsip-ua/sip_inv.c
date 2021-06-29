@@ -2436,6 +2436,10 @@ PJ_DEF(pj_status_t) pjsip_inv_answer(	pjsip_inv_session *inv,
 	last_res->msg->body = NULL;
     }
 
+    if (st_code == 200 && last_res->msg->body) {
+        last_res->msg->body = NULL;
+    }
+
     /* Process SDP in answer */
     status = process_answer(inv, st_code, last_res, local_sdp);
     if (status != PJ_SUCCESS) {
