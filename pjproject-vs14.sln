@@ -114,7 +114,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libwebrtc", "third_party\bu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "swig_java_pjsua2", "pjsip-apps\build\swig_java_pjsua2.vcxproj", "{63AC6D7A-5D97-40C2-9AF2-E13AA1F9567C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "microsip", "..\MicroSIP-3.20.5-src\microsip.vcxproj", "{BB46A3FD-3E25-44BF-9DED-36A8E838A095}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "microsip", "..\MicroSIP-3.20.5\microsip.vcxproj", "{BB46A3FD-3E25-44BF-9DED-36A8E838A095}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23D7679C-764C-4E02-8B29-BB882CEEEFE2} = {23D7679C-764C-4E02-8B29-BB882CEEEFE2}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
